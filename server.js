@@ -5,11 +5,11 @@ const path = require('path');
 const express = require('express');
 // Import express.session
 const session = require('express-session');
+
 // Import Handlebars.js
 const exphbs = require('express-handlebars');
-
-const app = express();
-const PORT = process.env.PORT || 3001;
+// Import helpers file
+const helpers = require('./utils/helpers');
 
 // Import sequelize
 const sequelize = require('./config/connection');
@@ -27,10 +27,13 @@ const sess = {
   }),
 };
 
+const app = express();
+const PORT = process.env.PORT || 3001;
+
 // allow the app to use express-session
 app.use(session(sess));
 
-const hbs = exphbs.create({});
+const hbs = exphbs.create({ helpers });
 
 // set handlebars as the apps template engine of choice
 app.engine('handlebars', hbs.engine);
