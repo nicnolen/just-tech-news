@@ -1,30 +1,33 @@
 const router = require('express').Router();
 const { Comment } = require('../../models');
+const withAuth = require('../../utils/auth');
 
 router.get('/', (req, res) => {
   Comment.findAll()
     .then(dbCommentData => res.json(dbCommentData))
     .catch(err => {
-      console.log(err);
+      console.error(err);
       res.status(500).json(err);
     });
 });
 
-router.post('/', (req, res) => {
+router.post('/', withAuth, (req, res) => {
   // expects => {comment_text: "This is the comment", user_id: 1, post_id: 2}
-  Comment.create({
-    comment_text: req.body.comment_text,
-    user_id: req.body.user_id,
-    post_id: req.body.post_id,
-  })
-    .then(dbCommentData => res.json(dbCommentData))
-    .catch(err => {
-      console.error(err);
-      res.status(400).json(err);
-    });
+  if (req.session) {
+    Comment.create({
+      comment_text: req.body.comment_text,
+      user_id: req.session.user_id,
+      post_id: req.body.post_id,
+    })
+      .then(dbCommentData => res.json(dbCommentData))
+      .catch(err => {
+        console.error(err);
+        res.status(400).json(err);
+      });
+  }
 });
 
-router.delete('/:id', (req, res) => {
+router.delete('/:id', withAuth, (req, res) => {
   Comment.destroy({
     where: {
       id: req.params.id,
@@ -38,7 +41,7 @@ router.delete('/:id', (req, res) => {
       res.json(dbCommentData);
     })
     .catch(err => {
-      console.log(err);
+      console.error(err);
       res.status(500).json(err);
     });
 });
