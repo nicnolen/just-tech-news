@@ -1,6 +1,6 @@
 const { format } = require('express/lib/response');
 const { pluralize } = require('sequelize/dist/lib/utils');
-const { format_date } = require('../utils/helpers');
+const { format_date, format_plural } = require('../utils/helpers');
 
 // test to make sure that format_date() takes Date() objects and returns dates in correct format
 test('format_date() returns a date string', () => {
