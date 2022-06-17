@@ -8,6 +8,7 @@
 - [Built With](#built-with)
 - [Installation Instructions](#installation-instructions)
 - [Usage Instructions](#usage-instructions)
+- [Tests](#tests)
 - [License Section](#license)
 
 - [Contact Me](#contact-me)
@@ -55,6 +56,10 @@ To see and use the deployed site, follow this link to Heroku: https://just--tech
 4. On the homepage, you can click on the comments button under a post to add a comment or upvote to a post.
 
 5. If you wish to create a new post, click on the dashboard button to the left of the logout button at the top of the screen to be navigated to your dashboard where you can create a new post, or view your existing posts.
+
+## Tests
+
+To run tests, type the command `npm run test` in the command line
 
 ## License
 
